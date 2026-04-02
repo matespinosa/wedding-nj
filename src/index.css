@@ -118,6 +118,41 @@ body {
 .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
 .reveal-scale.visible { opacity: 1; transform: scale(1); }
 
+/* ========== PREVIEW BANNER (Vercel preview) ========== */
+.preview-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: center;
+  line-height: 1.35;
+  color: var(--cream);
+  background: linear-gradient(90deg, var(--green-dark) 0%, #2d3a2c 50%, var(--green-dark) 100%);
+  border-bottom: 1px solid rgba(196, 163, 90, 0.35);
+  box-shadow: 0 4px 20px rgba(44, 58, 43, 0.15);
+}
+.preview-banner__dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  box-shadow: 0 0 10px rgba(212, 183, 106, 0.7);
+  animation: pulse 2s ease-in-out infinite;
+}
+.preview-banner-spacer {
+  height: 2.65rem;
+}
+
 /* ========== FLOATING PETALS ========== */
 .floating-petals {
   position: fixed;
