@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { HeroFlorals } from './HeroFlorals';
 import { useI18n } from '../i18n/I18nContext';
+import { scrollToElementBouncy } from '../lib/scrollBouncy';
 
 const WEDDING_MS = new Date('2026-04-24T19:00:00-04:00').getTime();
 
@@ -125,13 +126,24 @@ export function Hero() {
             <span className="countdown-label">{t.hero.sec}</span>
           </div>
         </div>
-      </div>
 
-      <div className="scroll-hint">
-        <span>{t.hero.scroll}</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+        <div className="hero-scroll-hint">
+          <a
+            href="#rsvp"
+            className="hero-rsvp-link"
+            aria-label={t.hero.scrollAria}
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById('rsvp');
+              if (el) scrollToElementBouncy(el);
+            }}
+          >
+            <span>{t.hero.scrollLabel}</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );

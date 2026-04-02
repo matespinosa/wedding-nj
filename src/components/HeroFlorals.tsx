@@ -12,7 +12,7 @@ export function HeroFlorals({ trRef, tlRef, blRef, brRef }: Props) {
     <>
       <div ref={trRef} className="hero-floral-tr">
   <svg viewBox="0 0 400 400" fill="none" >
-    <g opacity="0.85">
+    <g opacity="1">
       
       <path d="M400 0 Q350 60 320 140 Q310 100 330 50 Q350 20 400 0Z" fill="#6B8064" opacity="0.6"/>
       <path d="M380 20 Q340 80 300 160 Q295 110 310 70 Q330 35 380 20Z" fill="#5C6B4F" opacity="0.55"/>
@@ -61,7 +61,7 @@ export function HeroFlorals({ trRef, tlRef, blRef, brRef }: Props) {
 
       <div ref={tlRef} className="hero-floral-tl">
   <svg viewBox="0 0 300 380" fill="none" >
-    <g opacity="0.75">
+    <g opacity="1">
       
       <path d="M0 0 Q60 80 90 200 Q95 220 100 250" stroke="#6B8064" strokeWidth="2.5" fill="none" opacity="0.6"/>
 
@@ -98,7 +98,7 @@ export function HeroFlorals({ trRef, tlRef, blRef, brRef }: Props) {
 
       <div ref={blRef} className="hero-floral-bl">
   <svg viewBox="0 0 360 360" fill="none" >
-    <g opacity="0.8">
+    <g opacity="1">
       
       <path d="M0 360 Q30 300 70 250 Q50 290 20 340Z" fill="#5C6B4F" opacity="0.55"/>
       <path d="M20 340 Q50 280 95 230 Q75 270 40 320Z" fill="#6B8064" opacity="0.5"/>
@@ -139,26 +139,37 @@ export function HeroFlorals({ trRef, tlRef, blRef, brRef }: Props) {
       </div>
 
       <div ref={brRef} className="hero-floral-br">
-  <svg viewBox="0 0 300 340" fill="none" >
-    <g opacity="0.7">
-      <path d="M300 340 Q270 280 240 230 Q260 270 285 320Z" fill="#5C6B4F" opacity="0.55"/>
-      <path d="M280 340 Q250 285 215 240 Q240 275 265 330Z" fill="#6B8064" opacity="0.5"/>
-      <path d="M260 350 Q235 300 200 255 Q225 290 248 340Z" fill="#7A9470" opacity="0.45"/>
-      <path d="M300 300 Q280 260 250 225 Q275 255 295 290Z" fill="#8A9A7B" opacity="0.4"/>
-
-      
-      <path d="M275 310 Q285 290 295 275 L290 290 Q282 305 275 310Z" fill="#8A9A7B" opacity="0.4"/>
-      <path d="M260 330 Q270 312 280 298 L275 310 Q268 325 260 330Z" fill="#9DAE8F" opacity="0.35"/>
-
-      
-      <ellipse cx="235" cy="260" rx="8" ry="10" fill="#9DAE8F" opacity="0.35" transform="rotate(15 235 260)"/>
-      <ellipse cx="258" cy="248" rx="7" ry="9" fill="#8A9A7B" opacity="0.3" transform="rotate(25 258 248)"/>
-      <ellipse cx="220" cy="280" rx="6" ry="8" fill="#9DAE8F" opacity="0.3"/>
-
-      
-      <path d="M292 275 Q298 270 300 275" fill="#8B7B60" opacity="0.2"/>
-    </g>
-  </svg>
+        <svg viewBox="0 0 300 340" fill="none">
+          <g transform="translate(300 340) scale(-1 -1)" opacity="1">
+            <path
+              d="M0 0 Q60 80 90 200 Q95 220 100 250"
+              stroke="#6B8064"
+              strokeWidth="2.5"
+              fill="none"
+              opacity="0.6"
+            />
+            <path d="M10 20 Q25 50 40 70 Q20 55 5 30Z" fill="#5C6B4F" opacity="0.6" />
+            <path d="M18 45 Q35 75 52 100 Q30 85 15 55Z" fill="#6B8064" opacity="0.55" />
+            <path d="M25 70 Q45 100 62 135 Q38 115 22 80Z" fill="#7A9470" opacity="0.5" />
+            <path d="M35 100 Q55 130 72 165 Q48 145 32 110Z" fill="#5C6B4F" opacity="0.55" />
+            <path d="M45 130 Q65 160 80 195 Q58 175 42 140Z" fill="#8A9A7B" opacity="0.45" />
+            <path d="M55 160 Q75 190 88 220 Q68 200 52 170Z" fill="#6B8064" opacity="0.5" />
+            <path d="M65 190 Q82 215 92 245 Q76 225 62 195Z" fill="#7A9470" opacity="0.45" />
+            <path d="M20 30 Q50 40 75 55 Q45 50 18 38Z" fill="#6B8064" opacity="0.55" />
+            <path d="M30 55 Q60 68 88 85 Q55 78 28 62Z" fill="#7A9470" opacity="0.5" />
+            <path d="M40 82 Q70 95 100 115 Q65 105 38 90Z" fill="#5C6B4F" opacity="0.55" />
+            <path d="M50 110 Q80 125 110 145 Q75 135 48 118Z" fill="#8A9A7B" opacity="0.45" />
+            <path d="M60 140 Q88 155 118 178 Q84 165 58 148Z" fill="#6B8064" opacity="0.5" />
+            <path d="M70 168 Q95 182 120 205 Q90 192 68 175Z" fill="#7A9470" opacity="0.45" />
+            <path d="M0 60 Q30 90 50 140" stroke="#8A9A7B" strokeWidth="1.5" fill="none" opacity="0.4" />
+            <ellipse cx="15" cy="72" rx="6" ry="10" fill="#9DAE8F" opacity="0.35" transform="rotate(-30 15 72)" />
+            <ellipse cx="28" cy="92" rx="5" ry="9" fill="#8A9A7B" opacity="0.3" transform="rotate(-20 28 92)" />
+            <ellipse cx="38" cy="112" rx="5" ry="8" fill="#9DAE8F" opacity="0.3" transform="rotate(-15 38 112)" />
+            <ellipse cx="46" cy="130" rx="4" ry="7" fill="#8A9A7B" opacity="0.25" transform="rotate(-10 46 130)" />
+            <path d="M8 22 Q15 18 20 22" fill="#8B7B60" opacity="0.2" />
+            <path d="M48 135 Q55 130 58 136" fill="#8B7B60" opacity="0.15" />
+          </g>
+        </svg>
       </div>
     </>
   );
