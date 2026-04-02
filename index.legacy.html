@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mateo & Rosa - Nuestra Boda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAF8F0;
+      --cream-dark: #F2EFE4;
+      --green-dark: #3B4A3A;
+      --green-olive: #5C6B4F;
+      --green-light: #8A9A7B;
+      --green-pale: #C5D1B8;
+      --gold: #C4A35A;
+      --gold-light: #D4B76A;
+      --gold-dark: #A8893E;
+      --white: #FFFFFF;
+      --text-dark: #2C3A2B;
+      --text-muted: #6B7A69;
+      --border: rgba(92, 107, 79, 0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.7;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-8px) rotate(1deg); }
+      66% { transform: translateY(4px) rotate(-1deg); }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+    }
+    @keyframes drawLine {
+      from { width: 0; }
+      to { width: 80px; }
+    }
+    @keyframes leafSway {
+      0%, 100% { transform: rotate(0deg) translateX(0); }
+      25% { transform: rotate(2deg) translateX(3px); }
+      75% { transform: rotate(-2deg) translateX(-3px); }
+    }
+    @keyframes petalFloat {
+      0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.7; }
+      25% { transform: translateY(25vh) translateX(20px) rotate(90deg); opacity: 0.5; }
+      50% { transform: translateY(50vh) translateX(-10px) rotate(180deg); opacity: 0.3; }
+      75% { transform: translateY(75vh) translateX(15px) rotate(270deg); opacity: 0.15; }
+      100% { transform: translateY(100vh) translateX(0) rotate(360deg); opacity: 0; }
+    }
+    @keyframes countPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    @keyframes goldGlow {
+      0%, 100% { text-shadow: 0 0 10px rgba(196, 163, 90, 0.2); }
+      50% { text-shadow: 0 0 30px rgba(196, 163, 90, 0.5), 0 0 60px rgba(196, 163, 90, 0.15); }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+    @keyframes revealMask {
+      from { clip-path: inset(0 100% 0 0); }
+      to { clip-path: inset(0 0% 0 0); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+
+    /* Scroll-triggered */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* ========== FLOATING PETALS ========== */
+    .floating-petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -40px;
+      border-radius: 50% 0 50% 50%;
+      opacity: 0;
+      animation: petalFloat linear infinite;
+    }
+
+    /* ========== GOLDEN SPARKLES ========== */
+    .sparkle-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold-light);
+      border-radius: 50%;
+      animation: sparkle 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* ========== FLORAL CORNERS (detailed SVG) ========== */
+    .floral-corner {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .floral-corner svg { width: 100%; height: 100%; }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(197,209,184,0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 5%, rgba(197,209,184,0.2) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 90%, rgba(197,209,184,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 10% 85%, rgba(197,209,184,0.2) 0%, transparent 45%),
+        var(--cream);
+    }
+
+    /* Top-right floral: white flowers + leaves */
+    .hero-floral-tr {
+      position: absolute;
+      top: -30px;
+      right: -40px;
+      width: clamp(200px, 40vw, 380px);
+      height: clamp(200px, 40vw, 380px);
+      animation: floatSlow 8s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    /* Top-left palm frond */
+    .hero-floral-tl {
+      position: absolute;
+      top: -20px;
+      left: -30px;
+      width: clamp(160px, 30vw, 300px);
+      height: clamp(200px, 35vw, 350px);
+      animation: leafSway 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    /* Bottom-left flowers */
+    .hero-floral-bl {
+      position: absolute;
+      bottom: -30px;
+      left: -30px;
+      width: clamp(180px, 35vw, 340px);
+      height: clamp(180px, 35vw, 340px);
+      animation: floatSlow 9s ease-in-out infinite 1s;
+      z-index: 1;
+    }
+
+    /* Bottom-right leaves */
+    .hero-floral-br {
+      position: absolute;
+      bottom: -20px;
+      right: -30px;
+      width: clamp(150px, 28vw, 280px);
+      height: clamp(180px, 32vw, 320px);
+      animation: leafSway 7s ease-in-out infinite 0.5s;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-subtitle {
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      animation: fadeInDown 1s ease 0.2s both;
+    }
+
+    .hero-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.5rem, 11vw, 7rem);
+      color: var(--gold);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      animation: scaleIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both, goldGlow 4s ease-in-out 2s infinite;
+    }
+
+    .hero-names .ampersand {
+      display: block;
+      font-size: 0.45em;
+      color: var(--gold-light);
+      margin: -0.15em 0;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green-olive);
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      font-weight: 400;
+      animation: fadeInUp 1s ease 0.9s both;
+    }
+
+    .hero-line {
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+      animation: drawLine 1s ease 1.2s both;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 1.4s both;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(196,163,90,0.2);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      min-width: 72px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .countdown-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(196,163,90,0.15);
+    }
+
+    .countdown-number {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--green-dark);
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .countdown-number.pop {
+      animation: countPop 0.3s ease;
+    }
+
+    .countdown-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      animation: bounce 2.5s infinite 3s;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease 2.5s both, bounce 2.5s infinite 3.5s;
+    }
+
+    .scroll-hint span {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .scroll-hint svg { width: 20px; height: 20px; }
+
+    /* ========== SECTIONS ========== */
+    section {
+      padding: 5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-container { max-width: 700px; margin: 0 auto; }
+
+    .section-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .section-heading {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Section floral decorations */
+    .section-floral {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    .section-floral--right {
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(120px, 20vw, 200px);
+    }
+
+    .section-floral--left {
+      left: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(120px, 20vw, 200px);
+    }
+
+    /* ========== DETAILS ========== */
+    .details { background: var(--cream); }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .detail-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .detail-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(196,163,90,0.06), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .detail-card:hover::before { left: 100%; }
+
+    .detail-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(59, 74, 58, 0.1);
+    }
+
+    .detail-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 1rem;
+      color: var(--green-olive);
+      transition: transform 0.3s ease;
+    }
+
+    .detail-card:hover .detail-icon { transform: scale(1.15); }
+
+    .detail-card h3 {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .detail-card p { font-size: 1rem; color: var(--text-dark); font-weight: 400; }
+    .detail-card .detail-sub { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      padding: 0.75rem 2rem;
+      background: var(--green-dark);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 50px;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      border: 2px solid var(--green-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .map-btn:hover::before { transform: translateX(100%); }
+
+    .map-btn:hover {
+      background: transparent;
+      color: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59,74,58,0.15);
+    }
+
+    .map-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .map-btn:hover svg { transform: translateX(4px); }
+
+    /* ========== GIFTS ========== */
+    .gifts {
+      background: var(--cream-dark);
+      position: relative;
+    }
+
+    .gifts-text {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      line-height: 1.9;
+    }
+
+    .gifts-btn {
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      padding: 0.9rem 2.5rem;
+      background: transparent;
+      color: var(--gold-dark);
+      border: 2px solid var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gifts-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: -1;
+    }
+
+    .gifts-btn:hover::before { transform: scaleX(1); transform-origin: left; }
+    .gifts-btn:hover { color: var(--white); border-color: var(--gold); }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44, 58, 43, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.85) translateY(30px);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .modal-overlay.active .modal { transform: scale(1) translateY(0); }
+
+    .modal h3 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-info {
+      text-align: left;
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-info p { font-size: 0.85rem; color: var(--text-dark); margin-bottom: 0.5rem; }
+    .modal-info p:last-child { margin-bottom: 0; }
+    .modal-info strong { color: var(--green-dark); font-weight: 500; }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .modal-close:hover { color: var(--text-dark); }
+
+    /* ========== RSVP ========== */
+    .rsvp { background: var(--cream); }
+
+    .rsvp-form {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .form-group:focus-within label { color: var(--green-dark); }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-dark);
+      background: var(--cream);
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--green-olive);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(92, 107, 79, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7A69' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 1.1rem;
+      background: linear-gradient(135deg, var(--green-dark), var(--green-olive));
+      color: var(--cream);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      margin-top: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .submit-btn:hover::after { transform: translateX(100%); }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(59, 74, 58, 0.25);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    .form-group.error input,
+    .form-group.error select {
+      border-color: #c45a5a;
+      background: #fef5f5;
+    }
+
+    .error-message {
+      color: #c45a5a;
+      font-size: 0.7rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .form-group.error .error-message { display: block; animation: fadeInUp 0.3s ease; }
+
+    /* Thank you */
+    .thank-you {
+      display: none;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .thank-you.show { display: block; animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    .thank-you-check {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(92, 107, 79, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      animation: scaleIn 0.5s ease 0.2s both;
+    }
+
+    .thank-you-check svg {
+      width: 42px;
+      height: 42px;
+      color: var(--green-olive);
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: drawCheck 0.6s ease 0.5s forwards;
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .thank-you h3 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .thank-you p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* Confetti */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: -10px;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+      80% { opacity: 0.8; }
+      100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      background: var(--cream-dark);
+      position: relative;
+    }
+
+    .footer-names {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-date {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (min-width: 600px) {
+      .details-grid { grid-template-columns: 1fr 1fr; }
+      .detail-card.full-width { grid-column: 1 / -1; }
+      .rsvp-form { padding: 3rem 2.5rem; }
+    }
+
+    @media (min-width: 900px) {
+      section { padding: 7rem 2rem; }
+      .rsvp-form { padding: 3.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating petals -->
+  <div class="floating-petals" id="floatingPetals"></div>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+
+    <!-- Top-right: White flowers with leaves -->
+    <div class="hero-floral-tr">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.85">
+          <!-- Large leaf stems -->
+          <path d="M400 0 Q350 60 320 140 Q310 100 330 50 Q350 20 400 0Z" fill="#6B8064" opacity="0.6"/>
+          <path d="M380 20 Q340 80 300 160 Q295 110 310 70 Q330 35 380 20Z" fill="#5C6B4F" opacity="0.55"/>
+          <path d="M360 60 Q320 110 280 180 Q280 130 295 90 Q315 60 360 60Z" fill="#7A9470" opacity="0.5"/>
+
+          <!-- Fern-like small leaves top -->
+          <path d="M320 30 Q305 50 290 80 L295 48 Q305 30 320 30Z" fill="#8A9A7B" opacity="0.5"/>
+          <path d="M340 15 Q330 35 320 60 L325 35 Q332 18 340 15Z" fill="#9DAE8F" opacity="0.4"/>
+          <path d="M285 70 Q270 90 260 120 L268 90 Q275 72 285 70Z" fill="#8A9A7B" opacity="0.45"/>
+
+          <!-- Large white flower (main) -->
+          <ellipse cx="330" cy="100" rx="40" ry="35" fill="#F5F0E8" opacity="0.9" transform="rotate(-20 330 100)"/>
+          <ellipse cx="310" cy="90" rx="36" ry="30" fill="#FDFBF5" opacity="0.85" transform="rotate(-40 310 90)"/>
+          <ellipse cx="350" cy="90" rx="32" ry="28" fill="#F8F4EC" opacity="0.8" transform="rotate(10 350 90)"/>
+          <ellipse cx="325" cy="115" rx="34" ry="28" fill="#FAF8F0" opacity="0.85" transform="rotate(-10 325 115)"/>
+          <ellipse cx="340" cy="110" rx="30" ry="25" fill="#FFFFFF" opacity="0.75" transform="rotate(15 340 110)"/>
+          <!-- Flower center -->
+          <circle cx="330" cy="100" r="10" fill="#E8DCC8" opacity="0.6"/>
+          <circle cx="330" cy="100" r="5" fill="#D4B76A" opacity="0.4"/>
+
+          <!-- Smaller flower -->
+          <ellipse cx="280" cy="60" rx="22" ry="18" fill="#F5F0E8" opacity="0.8" transform="rotate(-30 280 60)"/>
+          <ellipse cx="270" cy="55" rx="20" ry="16" fill="#FDFBF5" opacity="0.75" transform="rotate(-50 270 55)"/>
+          <ellipse cx="290" cy="55" rx="18" ry="15" fill="#FAF8F0" opacity="0.7" transform="rotate(5 290 55)"/>
+          <circle cx="280" cy="58" r="6" fill="#E8DCC8" opacity="0.5"/>
+          <circle cx="280" cy="58" r="3" fill="#D4B76A" opacity="0.35"/>
+
+          <!-- Buds -->
+          <ellipse cx="370" cy="45" rx="8" ry="13" fill="#F0EBE0" opacity="0.7" transform="rotate(-15 370 45)"/>
+          <ellipse cx="258" cy="35" rx="6" ry="10" fill="#EDE7DA" opacity="0.6" transform="rotate(20 258 35)"/>
+          <path d="M370 35 Q372 42 370 50" stroke="#8A9A7B" stroke-width="1" opacity="0.4" fill="none"/>
+          <path d="M258 28 Q260 32 258 38" stroke="#8A9A7B" stroke-width="1" opacity="0.4" fill="none"/>
+
+          <!-- Eucalyptus-like round leaves -->
+          <ellipse cx="380" cy="65" rx="7" ry="9" fill="#9DAE8F" opacity="0.4" transform="rotate(30 380 65)"/>
+          <ellipse cx="395" cy="50" rx="6" ry="8" fill="#8A9A7B" opacity="0.35" transform="rotate(20 395 50)"/>
+          <ellipse cx="255" cy="100" rx="8" ry="10" fill="#9DAE8F" opacity="0.35" transform="rotate(-10 255 100)"/>
+
+          <!-- Tiny gold dots (pollen/sparkle) -->
+          <circle cx="345" cy="70" r="2" fill="#D4B76A" opacity="0.4"/>
+          <circle cx="300" cy="40" r="1.5" fill="#D4B76A" opacity="0.3"/>
+          <circle cx="365" cy="30" r="1.5" fill="#D4B76A" opacity="0.35"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Top-left: Palm frond -->
+    <div class="hero-floral-tl">
+      <svg viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.75">
+          <!-- Main palm frond stem -->
+          <path d="M0 0 Q60 80 90 200 Q95 220 100 250" stroke="#6B8064" stroke-width="2.5" fill="none" opacity="0.6"/>
+
+          <!-- Palm leaflets - left side -->
+          <path d="M10 20 Q25 50 40 70 Q20 55 5 30Z" fill="#5C6B4F" opacity="0.6"/>
+          <path d="M18 45 Q35 75 52 100 Q30 85 15 55Z" fill="#6B8064" opacity="0.55"/>
+          <path d="M25 70 Q45 100 62 135 Q38 115 22 80Z" fill="#7A9470" opacity="0.5"/>
+          <path d="M35 100 Q55 130 72 165 Q48 145 32 110Z" fill="#5C6B4F" opacity="0.55"/>
+          <path d="M45 130 Q65 160 80 195 Q58 175 42 140Z" fill="#8A9A7B" opacity="0.45"/>
+          <path d="M55 160 Q75 190 88 220 Q68 200 52 170Z" fill="#6B8064" opacity="0.5"/>
+          <path d="M65 190 Q82 215 92 245 Q76 225 62 195Z" fill="#7A9470" opacity="0.45"/>
+
+          <!-- Palm leaflets - right side -->
+          <path d="M20 30 Q50 40 75 55 Q45 50 18 38Z" fill="#6B8064" opacity="0.55"/>
+          <path d="M30 55 Q60 68 88 85 Q55 78 28 62Z" fill="#7A9470" opacity="0.5"/>
+          <path d="M40 82 Q70 95 100 115 Q65 105 38 90Z" fill="#5C6B4F" opacity="0.55"/>
+          <path d="M50 110 Q80 125 110 145 Q75 135 48 118Z" fill="#8A9A7B" opacity="0.45"/>
+          <path d="M60 140 Q88 155 118 178 Q84 165 58 148Z" fill="#6B8064" opacity="0.5"/>
+          <path d="M70 168 Q95 182 120 205 Q90 192 68 175Z" fill="#7A9470" opacity="0.45"/>
+
+          <!-- Secondary thin branch with small leaves -->
+          <path d="M0 60 Q30 90 50 140" stroke="#8A9A7B" stroke-width="1.5" fill="none" opacity="0.4"/>
+          <ellipse cx="15" cy="72" rx="6" ry="10" fill="#9DAE8F" opacity="0.35" transform="rotate(-30 15 72)"/>
+          <ellipse cx="28" cy="92" rx="5" ry="9" fill="#8A9A7B" opacity="0.3" transform="rotate(-20 28 92)"/>
+          <ellipse cx="38" cy="112" rx="5" ry="8" fill="#9DAE8F" opacity="0.3" transform="rotate(-15 38 112)"/>
+          <ellipse cx="46" cy="130" rx="4" ry="7" fill="#8A9A7B" opacity="0.25" transform="rotate(-10 46 130)"/>
+
+          <!-- A few browning leaf tips for realism -->
+          <path d="M8 22 Q15 18 20 22" fill="#8B7B60" opacity="0.2"/>
+          <path d="M48 135 Q55 130 58 136" fill="#8B7B60" opacity="0.15"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Bottom-left: White flowers cluster -->
+    <div class="hero-floral-bl">
+      <svg viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.8">
+          <!-- Leaf branches -->
+          <path d="M0 360 Q30 300 70 250 Q50 290 20 340Z" fill="#5C6B4F" opacity="0.55"/>
+          <path d="M20 340 Q50 280 95 230 Q75 270 40 320Z" fill="#6B8064" opacity="0.5"/>
+          <path d="M50 360 Q70 310 110 265 Q90 300 60 345Z" fill="#7A9470" opacity="0.45"/>
+          <path d="M80 360 Q95 320 125 280 Q110 310 88 350Z" fill="#5C6B4F" opacity="0.5"/>
+
+          <!-- Small fern leaves -->
+          <path d="M30 310 Q20 290 15 270 L22 285 Q28 300 30 310Z" fill="#8A9A7B" opacity="0.4"/>
+          <path d="M55 330 Q45 308 40 290 L48 305 Q53 320 55 330Z" fill="#9DAE8F" opacity="0.35"/>
+          <path d="M100 320 Q110 300 125 285 L115 298 Q105 312 100 320Z" fill="#8A9A7B" opacity="0.4"/>
+
+          <!-- Large white flower -->
+          <ellipse cx="80" cy="300" rx="42" ry="36" fill="#F5F0E8" opacity="0.9" transform="rotate(15 80 300)"/>
+          <ellipse cx="60" cy="295" rx="38" ry="32" fill="#FDFBF5" opacity="0.85" transform="rotate(-5 60 295)"/>
+          <ellipse cx="100" cy="295" rx="34" ry="30" fill="#F8F4EC" opacity="0.8" transform="rotate(30 100 295)"/>
+          <ellipse cx="75" cy="315" rx="36" ry="28" fill="#FAF8F0" opacity="0.85" transform="rotate(10 75 315)"/>
+          <ellipse cx="90" cy="310" rx="30" ry="26" fill="#FFFFFF" opacity="0.7" transform="rotate(20 90 310)"/>
+          <circle cx="82" cy="302" r="11" fill="#E8DCC8" opacity="0.6"/>
+          <circle cx="82" cy="302" r="5" fill="#D4B76A" opacity="0.4"/>
+
+          <!-- Smaller flower -->
+          <ellipse cx="130" cy="320" rx="24" ry="20" fill="#F5F0E8" opacity="0.75" transform="rotate(25 130 320)"/>
+          <ellipse cx="120" cy="318" rx="20" ry="17" fill="#FDFBF5" opacity="0.7" transform="rotate(5 120 318)"/>
+          <ellipse cx="138" cy="316" rx="18" ry="15" fill="#FAF8F0" opacity="0.65" transform="rotate(40 138 316)"/>
+          <circle cx="130" cy="318" r="7" fill="#E8DCC8" opacity="0.45"/>
+          <circle cx="130" cy="318" r="3.5" fill="#D4B76A" opacity="0.3"/>
+
+          <!-- Buds -->
+          <ellipse cx="40" cy="280" rx="7" ry="12" fill="#F0EBE0" opacity="0.6" transform="rotate(20 40 280)"/>
+          <ellipse cx="150" cy="340" rx="6" ry="10" fill="#EDE7DA" opacity="0.55" transform="rotate(-10 150 340)"/>
+
+          <!-- Gold dots -->
+          <circle cx="60" cy="275" r="2" fill="#D4B76A" opacity="0.35"/>
+          <circle cx="110" cy="290" r="1.5" fill="#D4B76A" opacity="0.3"/>
+          <circle cx="145" cy="305" r="1.5" fill="#D4B76A" opacity="0.3"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Bottom-right: Leaves/frond -->
+    <div class="hero-floral-br">
+      <svg viewBox="0 0 300 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="0.7">
+          <path d="M300 340 Q270 280 240 230 Q260 270 285 320Z" fill="#5C6B4F" opacity="0.55"/>
+          <path d="M280 340 Q250 285 215 240 Q240 275 265 330Z" fill="#6B8064" opacity="0.5"/>
+          <path d="M260 350 Q235 300 200 255 Q225 290 248 340Z" fill="#7A9470" opacity="0.45"/>
+          <path d="M300 300 Q280 260 250 225 Q275 255 295 290Z" fill="#8A9A7B" opacity="0.4"/>
+
+          <!-- Right side leaves -->
+          <path d="M275 310 Q285 290 295 275 L290 290 Q282 305 275 310Z" fill="#8A9A7B" opacity="0.4"/>
+          <path d="M260 330 Q270 312 280 298 L275 310 Q268 325 260 330Z" fill="#9DAE8F" opacity="0.35"/>
+
+          <!-- Eucalyptus round leaves -->
+          <ellipse cx="235" cy="260" rx="8" ry="10" fill="#9DAE8F" opacity="0.35" transform="rotate(15 235 260)"/>
+          <ellipse cx="258" cy="248" rx="7" ry="9" fill="#8A9A7B" opacity="0.3" transform="rotate(25 258 248)"/>
+          <ellipse cx="220" cy="280" rx="6" ry="8" fill="#9DAE8F" opacity="0.3"/>
+
+          <!-- Brown tips for depth -->
+          <path d="M292 275 Q298 270 300 275" fill="#8B7B60" opacity="0.2"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+      <p class="hero-subtitle">Junto a sus familias</p>
+      <h1 class="hero-names">
+        Mateo
+        <span class="ampersand">&</span>
+        Rosa
+      </h1>
+      <div class="hero-line"></div>
+      <p class="hero-tagline">Te invitamos a celebrar nuestra boda</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">--</span>
+          <span class="countdown-label">Dias</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">--</span>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">--</span>
+          <span class="countdown-label">Min</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">--</span>
+          <span class="countdown-label">Seg</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== DETAILS ========== -->
+  <section class="details">
+    <!-- Side floral decoration -->
+    <div class="section-floral section-floral--right" style="opacity:0.2;">
+      <svg viewBox="0 0 150 400" fill="none">
+        <path d="M150 50 Q120 100 100 180 Q95 140 110 90 Q125 60 150 50Z" fill="#8A9A7B" opacity="0.5"/>
+        <path d="M140 100 Q110 150 90 230 Q88 185 100 140 Q115 110 140 100Z" fill="#6B8064" opacity="0.45"/>
+        <path d="M130 160 Q105 200 88 270 Q88 230 98 190 Q110 165 130 160Z" fill="#5C6B4F" opacity="0.4"/>
+        <ellipse cx="105" cy="120" rx="18" ry="15" fill="#F5F0E8" opacity="0.4" transform="rotate(20 105 120)"/>
+        <ellipse cx="95" cy="115" rx="14" ry="12" fill="#FDFBF5" opacity="0.35" transform="rotate(-10 95 115)"/>
+        <circle cx="100" cy="118" r="4" fill="#D4B76A" opacity="0.2"/>
+        <ellipse cx="120" cy="80" rx="5" ry="7" fill="#9DAE8F" opacity="0.3"/>
+        <ellipse cx="110" cy="95" rx="4" ry="6" fill="#8A9A7B" opacity="0.25"/>
+      </svg>
+    </div>
+
+    <div class="section-container">
+      <p class="section-title reveal">Los detalles</p>
+      <h2 class="section-heading reveal">Celebremos Juntos</h2>
+      <div class="divider reveal"></div>
+
+      <div class="details-grid">
+        <div class="detail-card reveal-left" style="transition-delay: 0.1s">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <h3>Fecha y Hora</h3>
+          <p>Viernes, 24 de Abril</p>
+          <p class="detail-sub">2026 &middot; 7:00 PM</p>
+        </div>
+
+        <div class="detail-card reveal-right" style="transition-delay: 0.2s">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-6 9-6 9h24s-6-2-6-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <h3>Ceremonia</h3>
+          <p>7:00 PM</p>
+          <p class="detail-sub">Seguida de recepcion</p>
+        </div>
+
+        <div class="detail-card full-width reveal-scale" style="transition-delay: 0.3s">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <h3>Ubicacion</h3>
+          <p>Maddy Rose Restaurant at Liberty House</p>
+          <p class="detail-sub">76 Audrey Zapp Dr Floor 1, Jersey City, NJ 07305</p>
+          <a href="https://maps.google.com/?q=76+Audrey+Zapp+Dr+Floor+1+Jersey+City+NJ+07305" target="_blank" rel="noopener" class="map-btn">
+            Ver en el mapa
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GIFTS ========== -->
+  <section class="gifts">
+    <!-- Side floral -->
+    <div class="section-floral section-floral--left" style="opacity:0.2;">
+      <svg viewBox="0 0 150 400" fill="none">
+        <path d="M0 80 Q30 130 50 210 Q52 165 40 120 Q25 90 0 80Z" fill="#8A9A7B" opacity="0.5"/>
+        <path d="M10 140 Q38 185 55 260 Q55 218 45 175 Q32 148 10 140Z" fill="#6B8064" opacity="0.45"/>
+        <path d="M20 200 Q42 240 56 310 Q56 268 46 228 Q35 202 20 200Z" fill="#5C6B4F" opacity="0.4"/>
+        <ellipse cx="40" cy="150" rx="16" ry="14" fill="#F5F0E8" opacity="0.4" transform="rotate(-20 40 150)"/>
+        <ellipse cx="48" cy="146" rx="13" ry="11" fill="#FDFBF5" opacity="0.35" transform="rotate(10 48 146)"/>
+        <circle cx="44" cy="148" r="4" fill="#D4B76A" opacity="0.2"/>
+      </svg>
+    </div>
+
+    <div class="section-container">
+      <p class="section-title reveal">Mesa de Regalos</p>
+      <h2 class="section-heading reveal">Un Detalle Especial</h2>
+      <div class="divider reveal"></div>
+      <p class="gifts-text reveal">
+        Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros,
+        los regalos en efectivo seran muy apreciados.
+      </p>
+      <button class="gifts-btn reveal" id="giftBtn">Ver Datos Bancarios</button>
+    </div>
+  </section>
+
+  <!-- Gift Modal -->
+  <div class="modal-overlay" id="giftModal">
+    <div class="modal">
+      <h3>Datos Bancarios</h3>
+      <div class="modal-info">
+        <p><strong>Banco:</strong> Zelle</p>
+        <p><strong>Nombre:</strong> Mateo & Rosa</p>
+        <p><strong>Email / Telefono:</strong> mateoyrosa2026@email.com</p>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Tambien puedes traer tu sobre el dia del evento
+      </p>
+      <button class="modal-close" id="modalClose">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- ========== RSVP ========== -->
+  <section class="rsvp" id="rsvp">
+    <!-- Side floral -->
+    <div class="section-floral section-floral--right" style="opacity:0.18;">
+      <svg viewBox="0 0 150 400" fill="none">
+        <path d="M150 100 Q120 155 105 240 Q100 195 112 145 Q130 115 150 100Z" fill="#8A9A7B" opacity="0.5"/>
+        <path d="M140 160 Q115 205 100 280 Q98 238 108 195 Q120 168 140 160Z" fill="#6B8064" opacity="0.45"/>
+        <ellipse cx="115" cy="175" rx="10" ry="13" fill="#F0EBE0" opacity="0.35" transform="rotate(15 115 175)"/>
+        <ellipse cx="125" cy="140" rx="5" ry="7" fill="#9DAE8F" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <div class="section-container">
+      <p class="section-title reveal">Confirma tu asistencia</p>
+      <h2 class="section-heading reveal">RSVP</h2>
+      <div class="divider reveal"></div>
+
+      <form class="rsvp-form reveal-scale" id="rsvpForm" novalidate>
+        <div class="form-group">
+          <label for="name">Nombre Completo *</label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre y apellido" required>
+          <span class="error-message">Por favor ingresa tu nombre</span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Numero de Contacto *</label>
+          <input type="tel" id="phone" name="phone" placeholder="Tu numero de telefono" required>
+          <span class="error-message">Por favor ingresa tu numero de contacto</span>
+        </div>
+
+        <div class="form-group">
+          <label for="attendance">Asistiras? *</label>
+          <select id="attendance" name="attendance" required>
+            <option value="" disabled selected>Selecciona</option>
+            <option value="yes">Si, ahi estare!</option>
+            <option value="no">No podre asistir</option>
+          </select>
+          <span class="error-message">Selecciona una opcion</span>
+        </div>
+
+        <button type="submit" class="submit-btn">Confirmar Asistencia</button>
+      </form>
+
+      <div class="thank-you" id="thankYou">
+        <div class="thank-you-check">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3>Gracias!</h3>
+        <p>Hemos recibido tu confirmacion.<br>Estamos muy emocionados de compartir este dia tan especial contigo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="reveal">
+      <p class="footer-names">Mateo & Rosa</p>
+      <p class="footer-date">24 de Abril, 2026</p>
+    </div>
+  </footer>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // --- Floating Petals ---
+    (function() {
+      const container = document.getElementById('floatingPetals');
+      const colors = ['#F5F0E8', '#E8DCC8', '#C5D1B8', '#D4B76A', '#9DAE8F'];
+      for (let i = 0; i < 12; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.width = (Math.random() * 8 + 5) + 'px';
+        petal.style.height = (Math.random() * 10 + 6) + 'px';
+        petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        petal.style.animationDuration = (Math.random() * 8 + 10) + 's';
+        petal.style.animationDelay = (Math.random() * 12) + 's';
+        petal.style.opacity = '0';
+        container.appendChild(petal);
+      }
+    })();
+
+    // --- Countdown Timer with pop animation ---
+    (function() {
+      const weddingDate = new Date('2026-04-24T19:00:00-04:00').getTime();
+      let prev = {};
+
+      function updateCountdown() {
+        const now = Date.now();
+        const diff = Math.max(0, weddingDate - now);
+
+        const vals = {
+          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((diff % (1000 * 60)) / 1000)
+        };
+
+        Object.entries(vals).forEach(([key, val]) => {
+          const el = document.getElementById(key);
+          const display = key === 'days' ? String(val) : String(val).padStart(2, '0');
+          if (prev[key] !== undefined && prev[key] !== val) {
+            el.classList.remove('pop');
+            void el.offsetWidth;
+            el.classList.add('pop');
+          }
+          el.textContent = display;
+          prev[key] = val;
+        });
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+
+    // --- Scroll Reveal with staggered delays ---
+    (function() {
+      const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.style.transitionDelay || '0s';
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      reveals.forEach(el => observer.observe(el));
+    })();
+
+    // --- Parallax on floral elements ---
+    (function() {
+      const florals = document.querySelectorAll('.hero-floral-tr, .hero-floral-tl, .hero-floral-bl, .hero-floral-br');
+      let ticking = false;
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const scrollY = window.scrollY;
+            florals.forEach((el, i) => {
+              const speed = 0.08 + (i * 0.03);
+              el.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+
+    // --- Gift Modal ---
+    (function() {
+      const btn = document.getElementById('giftBtn');
+      const modal = document.getElementById('giftModal');
+      const close = document.getElementById('modalClose');
+
+      btn.addEventListener('click', () => modal.classList.add('active'));
+      close.addEventListener('click', () => modal.classList.remove('active'));
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+      });
+    })();
+
+    // --- RSVP Form ---
+    (function() {
+      const form = document.getElementById('rsvpForm');
+      const thankYou = document.getElementById('thankYou');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        form.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
+
+        let valid = true;
+
+        const name = document.getElementById('name');
+        if (!name.value.trim()) {
+          name.closest('.form-group').classList.add('error');
+          valid = false;
+        }
+
+        const phone = document.getElementById('phone');
+        if (!phone.value.trim()) {
+          phone.closest('.form-group').classList.add('error');
+          valid = false;
+        }
+
+        const attendance = document.getElementById('attendance');
+        if (!attendance.value) {
+          attendance.closest('.form-group').classList.add('error');
+          valid = false;
+        }
+
+        if (!valid) return;
+
+        form.style.opacity = '0';
+        form.style.transform = 'scale(0.95)';
+        form.style.transition = 'all 0.4s ease';
+
+        setTimeout(() => {
+          form.style.display = 'none';
+          thankYou.classList.add('show');
+          launchConfetti();
+          thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 400);
+      });
+
+      form.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('input', () => el.closest('.form-group').classList.remove('error'));
+        el.addEventListener('change', () => el.closest('.form-group').classList.remove('error'));
+      });
+    })();
+
+    // --- Confetti ---
+    function launchConfetti() {
+      const container = document.createElement('div');
+      container.className = 'confetti-container';
+      document.body.appendChild(container);
+
+      const colors = ['#C4A35A', '#D4B76A', '#8A9A7B', '#C5D1B8', '#5C6B4F', '#F5F0E8', '#A8893E'];
+      const shapes = ['square', 'circle'];
+
+      for (let i = 0; i < 80; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
+        piece.style.animationDelay = Math.random() * 2 + 's';
+        piece.style.width = (Math.random() * 8 + 4) + 'px';
+        piece.style.height = (Math.random() * 10 + 5) + 'px';
+        if (shape === 'circle') piece.style.borderRadius = '50%';
+        container.appendChild(piece);
+      }
+
+      setTimeout(() => container.remove(), 6000);
+    }
+  </script>
+</body>
+</html>
