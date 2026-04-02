@@ -4,13 +4,15 @@ import { Reveal } from './Reveal';
 import { launchConfetti } from '../lib/confetti';
 import { getSupabase } from '../lib/supabaseClient';
 
+const GUEST_OPTIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const;
+
 export function RSVP() {
   const { t } = useI18n();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [attendance, setAttendance] = useState('');
   const [guests, setGuests] = useState('');
-  const [errors, setErrors] = useState({ name: false, phone: false, attendance: false, guests: false });
+  const [errors, setErrors] = useState({ name: false, attendance: false, guests: false });
   const [phase, setPhase] = useState<'form' | 'hiding' | 'done'>('form');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -23,30 +25,28 @@ export function RSVP() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitError(null);
-    const guestsNum = parseInt(guests, 10);
     const next = {
       name: !name.trim(),
-      phone: !phone.trim(),
       attendance: !attendance,
-      guests: !guests.trim() || isNaN(guestsNum) || guestsNum < 1,
+      guests: guests === '',
     };
     setErrors(next);
-    if (next.name || next.phone || next.attendance || next.guests) return;
+    if (next.name || next.attendance || next.guests) return;
 
     const supabase = getSupabase();
     if (!supabase) {
-      setSubmitError(
-        t.rsvp.supabaseError
-      );
+      setSubmitError(t.rsvp.supabaseError);
       return;
     }
+
+    const guestCount = parseInt(guests, 10);
 
     setSubmitting(true);
     const { error } = await supabase.from('rsvp').insert({
       full_name: name.trim(),
-      phone: phone.trim(),
+      phone: phone.trim() || '',
       attending: attendance === 'yes',
-      guest_count: parseInt(guests, 10),
+      guest_count: guestCount,
     });
     setSubmitting(false);
 
@@ -132,42 +132,19 @@ export function RSVP() {
               <span className="error-message">{t.rsvp.nameError}</span>
             </div>
 
-            <div className={`form-group${errors.phone ? ' error' : ''}`}>
+            <div className="form-group">
               <label htmlFor="rsvp-phone">{t.rsvp.phoneLabel}</label>
               <input
                 type="tel"
+                inputMode="numeric"
                 id="rsvp-phone"
                 name="phone"
+                autoComplete="tel"
                 placeholder={t.rsvp.phonePlaceholder}
                 value={phone}
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                  clearFieldError('phone');
-                }}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                 disabled={submitting}
-                required
               />
-              <span className="error-message">{t.rsvp.phoneError}</span>
-            </div>
-
-            <div className={`form-group${errors.guests ? ' error' : ''}`}>
-              <label htmlFor="rsvp-guests">{t.rsvp.guestsLabel}</label>
-              <input
-                type="number"
-                id="rsvp-guests"
-                name="guests"
-                min="1"
-                max="20"
-                placeholder={t.rsvp.guestsPlaceholder}
-                value={guests}
-                onChange={(e) => {
-                  setGuests(e.target.value);
-                  clearFieldError('guests');
-                }}
-                disabled={submitting}
-                required
-              />
-              <span className="error-message">{t.rsvp.guestsError}</span>
             </div>
 
             <div className={`form-group${errors.attendance ? ' error' : ''}`}>
@@ -190,6 +167,31 @@ export function RSVP() {
                 <option value="no">{t.rsvp.attendNo}</option>
               </select>
               <span className="error-message">{t.rsvp.attendError}</span>
+            </div>
+
+            <div className={`form-group${errors.guests ? ' error' : ''}`}>
+              <label htmlFor="rsvp-guests">{t.rsvp.guestsLabel}</label>
+              <select
+                id="rsvp-guests"
+                name="guests"
+                value={guests}
+                onChange={(e) => {
+                  setGuests(e.target.value);
+                  clearFieldError('guests');
+                }}
+                disabled={submitting}
+                required
+              >
+                <option value="" disabled>
+                  {t.rsvp.guestsSelect}
+                </option>
+                {GUEST_OPTIONS.map((n) => (
+                  <option key={n} value={String(n)}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+              <span className="error-message">{t.rsvp.guestsError}</span>
             </div>
 
             <button type="submit" className="submit-btn" disabled={submitting}>
