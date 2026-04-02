@@ -1,8 +1,8 @@
-/**
- * Solo visible en despliegues Preview de Vercel (p. ej. wedding-nj-*.vercel.app).
- * En producción y en local no se muestra.
- */
+import { useI18n } from '../i18n/I18nContext';
+
 export function PreviewBanner() {
+  const { t } = useI18n();
+
   if (__VERCEL_ENV__ !== 'preview') {
     return null;
   }
@@ -11,10 +11,7 @@ export function PreviewBanner() {
     <>
       <div className="preview-banner" role="status">
         <span className="preview-banner__dot" aria-hidden />
-        <span>
-          Vista previa — este enlace es de prueba; la invitación oficial usará otro
-          dominio.
-        </span>
+        <span>{t.preview.banner}</span>
       </div>
       <div className="preview-banner-spacer" aria-hidden />
     </>

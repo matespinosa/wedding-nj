@@ -1,13 +1,16 @@
 import { useRef, useState } from 'react';
+import { useI18n } from '../i18n/I18nContext';
 import { Reveal } from './Reveal';
 import { launchConfetti } from '../lib/confetti';
 import { getSupabase } from '../lib/supabaseClient';
 
 export function RSVP() {
+  const { t } = useI18n();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [attendance, setAttendance] = useState('');
-  const [errors, setErrors] = useState({ name: false, phone: false, attendance: false });
+  const [guests, setGuests] = useState('');
+  const [errors, setErrors] = useState({ name: false, phone: false, attendance: false, guests: false });
   const [phase, setPhase] = useState<'form' | 'hiding' | 'done'>('form');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -20,18 +23,20 @@ export function RSVP() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitError(null);
+    const guestsNum = parseInt(guests, 10);
     const next = {
       name: !name.trim(),
       phone: !phone.trim(),
       attendance: !attendance,
+      guests: !guests.trim() || isNaN(guestsNum) || guestsNum < 1,
     };
     setErrors(next);
-    if (next.name || next.phone || next.attendance) return;
+    if (next.name || next.phone || next.attendance || next.guests) return;
 
     const supabase = getSupabase();
     if (!supabase) {
       setSubmitError(
-        'Falta configurar Supabase. Crea un archivo .env.local con VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY.'
+        t.rsvp.supabaseError
       );
       return;
     }
@@ -41,11 +46,12 @@ export function RSVP() {
       full_name: name.trim(),
       phone: phone.trim(),
       attending: attendance === 'yes',
+      guest_count: parseInt(guests, 10),
     });
     setSubmitting(false);
 
     if (error) {
-      setSubmitError(error.message || 'No pudimos guardar tu respuesta. Intenta de nuevo.');
+      setSubmitError(error.message || t.rsvp.submitError);
       return;
     }
 
@@ -86,7 +92,7 @@ export function RSVP() {
 
       <div className="section-container">
         <Reveal as="p" className="section-title reveal">
-          Confirma tu asistencia
+          {t.rsvp.sectionTitle}
         </Reveal>
         <Reveal as="h2" className="section-heading reveal">
           RSVP
@@ -109,12 +115,12 @@ export function RSVP() {
             {submitError ? <p className="rsvp-submit-error" role="alert">{submitError}</p> : null}
 
             <div className={`form-group${errors.name ? ' error' : ''}`}>
-              <label htmlFor="rsvp-name">Nombre Completo *</label>
+              <label htmlFor="rsvp-name">{t.rsvp.nameLabel}</label>
               <input
                 type="text"
                 id="rsvp-name"
                 name="name"
-                placeholder="Tu nombre y apellido"
+                placeholder={t.rsvp.namePlaceholder}
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -123,16 +129,16 @@ export function RSVP() {
                 disabled={submitting}
                 required
               />
-              <span className="error-message">Por favor ingresa tu nombre</span>
+              <span className="error-message">{t.rsvp.nameError}</span>
             </div>
 
             <div className={`form-group${errors.phone ? ' error' : ''}`}>
-              <label htmlFor="rsvp-phone">Numero de Contacto *</label>
+              <label htmlFor="rsvp-phone">{t.rsvp.phoneLabel}</label>
               <input
                 type="tel"
                 id="rsvp-phone"
                 name="phone"
-                placeholder="Tu numero de telefono"
+                placeholder={t.rsvp.phonePlaceholder}
                 value={phone}
                 onChange={(e) => {
                   setPhone(e.target.value);
@@ -141,11 +147,31 @@ export function RSVP() {
                 disabled={submitting}
                 required
               />
-              <span className="error-message">Por favor ingresa tu numero de contacto</span>
+              <span className="error-message">{t.rsvp.phoneError}</span>
+            </div>
+
+            <div className={`form-group${errors.guests ? ' error' : ''}`}>
+              <label htmlFor="rsvp-guests">{t.rsvp.guestsLabel}</label>
+              <input
+                type="number"
+                id="rsvp-guests"
+                name="guests"
+                min="1"
+                max="20"
+                placeholder={t.rsvp.guestsPlaceholder}
+                value={guests}
+                onChange={(e) => {
+                  setGuests(e.target.value);
+                  clearFieldError('guests');
+                }}
+                disabled={submitting}
+                required
+              />
+              <span className="error-message">{t.rsvp.guestsError}</span>
             </div>
 
             <div className={`form-group${errors.attendance ? ' error' : ''}`}>
-              <label htmlFor="rsvp-attendance">Asistiras? *</label>
+              <label htmlFor="rsvp-attendance">{t.rsvp.attendLabel}</label>
               <select
                 id="rsvp-attendance"
                 name="attendance"
@@ -158,16 +184,16 @@ export function RSVP() {
                 required
               >
                 <option value="" disabled>
-                  Selecciona
+                  {t.rsvp.attendSelect}
                 </option>
-                <option value="yes">Si, ahi estare!</option>
-                <option value="no">No podre asistir</option>
+                <option value="yes">{t.rsvp.attendYes}</option>
+                <option value="no">{t.rsvp.attendNo}</option>
               </select>
-              <span className="error-message">Selecciona una opcion</span>
+              <span className="error-message">{t.rsvp.attendError}</span>
             </div>
 
             <button type="submit" className="submit-btn" disabled={submitting}>
-              {submitting ? 'Enviando...' : 'Confirmar Asistencia'}
+              {submitting ? t.rsvp.submitting : t.rsvp.submitBtn}
             </button>
           </Reveal>
         ) : null}
@@ -189,11 +215,11 @@ export function RSVP() {
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-          <h3>Gracias!</h3>
+          <h3>{t.rsvp.thankTitle}</h3>
           <p>
-            Hemos recibido tu confirmacion.
+            {t.rsvp.thankLine1}
             <br />
-            Estamos muy emocionados de compartir este dia tan especial contigo.
+            {t.rsvp.thankLine2}
           </p>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { HeroFlorals } from './HeroFlorals';
+import { useI18n } from '../i18n/I18nContext';
 
 const WEDDING_MS = new Date('2026-04-24T19:00:00-04:00').getTime();
 
@@ -15,6 +16,7 @@ function computeCountdown(target: number) {
 }
 
 export function Hero() {
+  const { t } = useI18n();
   const trRef = useRef<HTMLDivElement>(null);
   const tlRef = useRef<HTMLDivElement>(null);
   const blRef = useRef<HTMLDivElement>(null);
@@ -89,44 +91,44 @@ export function Hero() {
       <HeroFlorals trRef={trRef} tlRef={tlRef} blRef={blRef} brRef={brRef} />
 
       <div className="hero-content">
-        <p className="hero-subtitle">Junto a sus familias</p>
+        <p className="hero-subtitle">{t.hero.subtitle}</p>
         <h1 className="hero-names">
           Mateo
           <span className="ampersand">&</span>
           Rosa
         </h1>
         <div className="hero-line" />
-        <p className="hero-tagline">Te invitamos a celebrar nuestra boda</p>
+        <p className="hero-tagline">{t.hero.tagline}</p>
         <div className="countdown" id="countdown">
           <div className="countdown-item">
             <span ref={daysRef} className="countdown-number" id="days">
               {displayDays}
             </span>
-            <span className="countdown-label">Dias</span>
+            <span className="countdown-label">{t.hero.days}</span>
           </div>
           <div className="countdown-item">
             <span ref={hoursRef} className="countdown-number" id="hours">
               {displayHours}
             </span>
-            <span className="countdown-label">Horas</span>
+            <span className="countdown-label">{t.hero.hours}</span>
           </div>
           <div className="countdown-item">
             <span ref={minutesRef} className="countdown-number" id="minutes">
               {displayMinutes}
             </span>
-            <span className="countdown-label">Min</span>
+            <span className="countdown-label">{t.hero.min}</span>
           </div>
           <div className="countdown-item">
             <span ref={secondsRef} className="countdown-number" id="seconds">
               {displaySeconds}
             </span>
-            <span className="countdown-label">Seg</span>
+            <span className="countdown-label">{t.hero.sec}</span>
           </div>
         </div>
       </div>
 
       <div className="scroll-hint">
-        <span>Scroll</span>
+        <span>{t.hero.scroll}</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <polyline points="6 9 12 15 18 9" />
         </svg>

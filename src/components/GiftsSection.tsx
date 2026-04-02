@@ -1,6 +1,8 @@
 import { Reveal } from './Reveal';
+import { useI18n } from '../i18n/I18nContext';
 
 export function GiftsSection() {
+  const { t } = useI18n();
   return (
     <section className="gifts">
       <div className="section-floral section-floral--left" style={{ opacity: 0.2 }}>
@@ -16,15 +18,14 @@ export function GiftsSection() {
 
       <div className="section-container">
         <Reveal as="p" className="section-title reveal">
-          Mesa de Regalos
+          {t.gifts.sectionTitle}
         </Reveal>
         <Reveal as="h2" className="section-heading reveal">
-          Un Detalle Especial
+          {t.gifts.heading}
         </Reveal>
         <Reveal as="div" className="divider reveal" />
         <Reveal as="p" className="gifts-text reveal">
-          Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros, los
-          regalos en efectivo seran muy apreciados.
+          {t.gifts.text}
         </Reveal>
       </div>
     </section>

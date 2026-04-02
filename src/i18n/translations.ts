@@ -1,0 +1,136 @@
+export type Locale = 'es' | 'en';
+
+const translations = {
+  es: {
+    hero: {
+      subtitle: 'Junto a sus familias',
+      tagline: 'Te invitamos a celebrar nuestra boda',
+      days: 'Días',
+      hours: 'Horas',
+      min: 'Min',
+      sec: 'Seg',
+      scroll: 'Scroll',
+    },
+    details: {
+      sectionTitle: 'Los detalles',
+      heading: 'Celebremos Juntos',
+      dateTitle: 'Fecha y Hora',
+      dateValue: 'Viernes, 24 de Abril',
+      dateSub: '2026 · 7:00 PM',
+      ceremonyTitle: 'Ceremonia',
+      ceremonyTime: '7:00 PM',
+      ceremonySub: 'Seguida de recepción',
+      locationTitle: 'Ubicación',
+      locationName: 'Maddy Rose Restaurant at Liberty House',
+      locationAddress: '76 Audrey Zapp Dr Floor 1, Jersey City, NJ 07305',
+      mapBtn: 'Ver en el mapa',
+    },
+    gifts: {
+      sectionTitle: 'Mesa de Regalos',
+      heading: 'Un Detalle Especial',
+      text: 'Su presencia es nuestro mejor regalo, pero si desean tener un detalle con nosotros, los regalos en efectivo serán muy apreciados.',
+    },
+    rsvp: {
+      sectionTitle: 'Confirma tu asistencia',
+      heading: 'RSVP',
+      nameLabel: 'Nombre Completo *',
+      namePlaceholder: 'Tu nombre y apellido',
+      nameError: 'Por favor ingresa tu nombre',
+      phoneLabel: 'Número de Contacto *',
+      phonePlaceholder: 'Tu número de teléfono',
+      phoneError: 'Por favor ingresa tu número de contacto',
+      attendLabel: '¿Asistirás? *',
+      attendSelect: 'Selecciona',
+      attendYes: '¡Sí, ahí estaré!',
+      attendNo: 'No podré asistir',
+      attendError: 'Selecciona una opción',
+      guestsLabel: 'Número de Invitados *',
+      guestsPlaceholder: '¿Cuántas personas asistirán? (incluyéndote)',
+      guestsError: 'Por favor ingresa el número de invitados',
+      submitting: 'Enviando...',
+      submitBtn: 'Confirmar Asistencia',
+      submitError: 'No pudimos guardar tu respuesta. Intenta de nuevo.',
+      supabaseError:
+        'Falta configurar Supabase. Crea un archivo .env.local con VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY.',
+      thankTitle: '¡Gracias!',
+      thankLine1: 'Hemos recibido tu confirmación.',
+      thankLine2: 'Estamos muy emocionados de compartir este día tan especial contigo.',
+    },
+    footer: {
+      names: 'Mateo & Rosa',
+      date: '24 de Abril, 2026',
+    },
+    preview: {
+      banner:
+        'Vista previa — este enlace es de prueba; la invitación oficial usará otro dominio.',
+    },
+  },
+  en: {
+    hero: {
+      subtitle: 'Together with their families',
+      tagline: 'We invite you to celebrate our wedding',
+      days: 'Days',
+      hours: 'Hours',
+      min: 'Min',
+      sec: 'Sec',
+      scroll: 'Scroll',
+    },
+    details: {
+      sectionTitle: 'The details',
+      heading: "Let's Celebrate Together",
+      dateTitle: 'Date & Time',
+      dateValue: 'Friday, April 24',
+      dateSub: '2026 · 7:00 PM',
+      ceremonyTitle: 'Ceremony',
+      ceremonyTime: '7:00 PM',
+      ceremonySub: 'Followed by reception',
+      locationTitle: 'Location',
+      locationName: 'Maddy Rose Restaurant at Liberty House',
+      locationAddress: '76 Audrey Zapp Dr Floor 1, Jersey City, NJ 07305',
+      mapBtn: 'View on map',
+    },
+    gifts: {
+      sectionTitle: 'Gift Registry',
+      heading: 'A Special Gesture',
+      text: 'Your presence is our greatest gift, but if you wish to give us something special, monetary gifts will be greatly appreciated.',
+    },
+    rsvp: {
+      sectionTitle: 'Confirm your attendance',
+      heading: 'RSVP',
+      nameLabel: 'Full Name *',
+      namePlaceholder: 'Your full name',
+      nameError: 'Please enter your name',
+      phoneLabel: 'Phone Number *',
+      phonePlaceholder: 'Your phone number',
+      phoneError: 'Please enter your phone number',
+      attendLabel: 'Will you attend? *',
+      attendSelect: 'Select',
+      attendYes: "Yes, I'll be there!",
+      attendNo: "I won't be able to attend",
+      attendError: 'Please select an option',
+      guestsLabel: 'Number of Guests *',
+      guestsPlaceholder: 'How many people will attend? (including you)',
+      guestsError: 'Please enter the number of guests',
+      submitting: 'Sending...',
+      submitBtn: 'Confirm Attendance',
+      submitError: "We couldn't save your response. Please try again.",
+      supabaseError:
+        'Supabase is not configured. Create an .env.local file with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.',
+      thankTitle: 'Thank you!',
+      thankLine1: "We've received your confirmation.",
+      thankLine2: "We're so excited to share this special day with you.",
+    },
+    footer: {
+      names: 'Mateo & Rosa',
+      date: 'April 24, 2026',
+    },
+    preview: {
+      banner:
+        'Preview — this is a test link; the official invitation will use a different domain.',
+    },
+  },
+} as const;
+
+export type Translations = (typeof translations)['es'];
+
+export default translations;
